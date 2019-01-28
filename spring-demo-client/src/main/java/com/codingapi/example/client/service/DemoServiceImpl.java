@@ -40,21 +40,20 @@ public class DemoServiceImpl implements DemoService {
         this.eDemoClient = eDemoClient;
     }
 
-    @Override
     @LcnTransaction
     @Transactional
     public String execute(String value) {
-        String dResp = dDemoClient.rpc(value);
-        String eResp = eDemoClient.rpc(value);
+        String dResp = this.dDemoClient.rpc(value);
+        String eResp = this.eDemoClient.rpc(value);
         Demo demo = new Demo();
         demo.setDemoField(value);
-        demo.setAppName(appName);
+        demo.setAppName(this.appName);
         demo.setCreateTime(new Date());
         demo.setGroupId(DTXLocal.getOrNew().getGroupId());
         demo.setUnitId(DTXLocal.getOrNew().getUnitId());
-        demoMapper.save(demo);
-       throw new RuntimeException("just a exception");
-//        return dResp + " > " + eResp + " > " + "ok-client";
+//        demoMapper.save(demo);
+        int i = 1 / 0;
+        return dResp + " > " + eResp + " > " + "ok-client";
     }
 
 

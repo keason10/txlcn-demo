@@ -1,4 +1,4 @@
-package com.codingapi.example.client;
+package com.codingapi.example.demod;
 
 import com.codingapi.txlcn.client.config.EnableDistributedTransaction;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;

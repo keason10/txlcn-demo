@@ -12,11 +12,6 @@
 
     <modules>
         <module>demo-common</module>
-
-        <module>dubbo-demo-client</module>
-        <module>dubbo-demo-d</module>
-        <module>dubbo-demo-e</module>
-
         <module>spring-demo-client</module>
         <module>spring-demo-d</module>
         <module>spring-demo-e</module>
