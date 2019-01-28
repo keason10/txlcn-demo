@@ -5,6 +5,7 @@ import com.codingapi.example.demod.mapper.DDemoMapper;
 import com.codingapi.example.demod.service.DemoService;
 import com.codingapi.txlcn.client.bean.DTXLocal;
 import com.codingapi.txlcn.commons.annotation.DTXPropagation;
+import com.codingapi.txlcn.commons.annotation.LcnTransaction;
 import com.codingapi.txlcn.commons.annotation.TxcTransaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,7 +35,7 @@ public class DemoServiceImpl implements DemoService {
 
 
     @Override
-    @TxcTransaction(dtxp = DTXPropagation.SUPPORTS)
+    @LcnTransaction(propagation = DTXPropagation.SUPPORTS)
     @Transactional
     public String rpc(String value) {
         Demo demo = new Demo();

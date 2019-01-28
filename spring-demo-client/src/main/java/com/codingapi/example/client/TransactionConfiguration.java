@@ -2,9 +2,15 @@ package com.codingapi.example.client;
 
 import com.codingapi.txlcn.client.aspect.interceptor.DTXInterceptor;
 import com.codingapi.txlcn.client.aspect.weave.DTXLogicWeaver;
+import com.codingapi.txlcn.client.config.EnableDistributedTransaction;
 import org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator;
+import org.springframework.boot.autoconfigure.transaction.TransactionProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.interceptor.TransactionInterceptor;
 
 import java.util.Properties;
@@ -15,27 +21,27 @@ import java.util.Properties;
  *
  * @author ujued
  */
-//@Configuration
-//@EnableTransactionManagement
-//@EnableConfigurationProperties(TransactionProperties.class)
+@Configuration
+@EnableDiscoveryClient
+@EnableDistributedTransaction
 public class TransactionConfiguration {
-
-    @Bean
-    public TransactionInterceptor transactionInterceptor(PlatformTransactionManager transactionManager, DTXLogicWeaver dtxLogicWeaver) {
-        Properties properties = new Properties();
-        properties.setProperty("*", "PROPAGATION_REQUIRED,-Throwable");
-
-        DTXInterceptor dtxInterceptor = new DTXInterceptor(dtxLogicWeaver);
-        dtxInterceptor.setTransactionManager(transactionManager);
-        dtxInterceptor.setTransactionAttributes(properties);
-        return dtxInterceptor;
-    }
-
-    @Bean
-    public BeanNameAutoProxyCreator beanNameAutoProxyCreator() {
-        BeanNameAutoProxyCreator beanNameAutoProxyCreator = new BeanNameAutoProxyCreator();
-        beanNameAutoProxyCreator.setInterceptorNames("transactionInterceptor");
-        beanNameAutoProxyCreator.setBeanNames("*Impl");
-        return beanNameAutoProxyCreator;
-    }
+//
+//    @Bean
+//    public TransactionInterceptor transactionInterceptor(PlatformTransactionManager transactionManager, DTXLogicWeaver dtxLogicWeaver) {
+//        Properties properties = new Properties();
+//        properties.setProperty("*", "PROPAGATION_REQUIRED,-Throwable");
+//
+//        DTXInterceptor dtxInterceptor = new DTXInterceptor(dtxLogicWeaver);
+//        dtxInterceptor.setTransactionManager(transactionManager);
+//        dtxInterceptor.setTransactionAttributes(properties);
+//        return dtxInterceptor;
+//    }
+//
+//    @Bean
+//    public BeanNameAutoProxyCreator beanNameAutoProxyCreator() {
+//        BeanNameAutoProxyCreator beanNameAutoProxyCreator = new BeanNameAutoProxyCreator();
+//        beanNameAutoProxyCreator.setInterceptorNames("transactionInterceptor");
+//        beanNameAutoProxyCreator.setBeanNames("*Impl");
+//        return beanNameAutoProxyCreator;
+//    }
 }

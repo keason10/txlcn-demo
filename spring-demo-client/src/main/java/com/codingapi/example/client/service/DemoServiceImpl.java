@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -41,6 +42,7 @@ public class DemoServiceImpl implements DemoService {
 
     @Override
     @LcnTransaction
+    @Transactional
     public String execute(String value) {
         String dResp = dDemoClient.rpc(value);
         String eResp = eDemoClient.rpc(value);
@@ -51,8 +53,8 @@ public class DemoServiceImpl implements DemoService {
         demo.setGroupId(DTXLocal.getOrNew().getGroupId());
         demo.setUnitId(DTXLocal.getOrNew().getUnitId());
         demoMapper.save(demo);
-//        int i = 1/0;
-        return dResp + " > " + eResp + " > " + "ok-client";
+       throw new RuntimeException("just a exception");
+//        return dResp + " > " + eResp + " > " + "ok-client";
     }
 
 
